@@ -18,14 +18,17 @@ User space on the other hand is the whole wide world where anything works and an
 Ideally you should be using an OS with the latest kernel version.
 ```bash
 gcc request_memory.c
-ulimit -S -v 1024
-getconf PAGE_SIZE
+ulimit -S -v 10240
 ./a.out
+ulimit -S -v unlimited
 ```
 
-
-# !!Note!!
-Incorrectly programmed kernel space module can break kernel space on execution. Usually this means your system will completely stop responding. Fear not however for there is a way to reverse the damage.
+```bash
+gcc malloc.c
+ulimit -S -v 10240
+./a.out
+ulimit -S -v unlimited
+```
 
 ## References
 * [difference between kernel space and userspace](https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space)
@@ -33,7 +36,11 @@ Incorrectly programmed kernel space module can break kernel space on execution. 
 * [restricting heap memory](http://geekswing.com/geek/quickie-tutorial-ulimit-soft-limits-hard-limits-soft-stack-hard-stack/)
 * [ulimit man page](https://ss64.com/bash/ulimit.html)
 * [limit virtual memory for program](https://unix.stackexchange.com/questions/438986/is-setting-ulimit-v-sufficient-to-avoid-memory-leak)
+* [syscalls used by malloc](https://sploitfun.wordpress.com/2015/02/11/syscalls-used-by-malloc/)
 
 ## TODO
 * [Explain Stack vs Heap to explain the role of malloc](https://medium.com/@nickteixeira/stack-vs-heap-whats-the-difference-and-why-should-i-care-5abc78da1a88)
 * [considering overcommit](http://www.etalabs.net/overcommit.html)
+* [Malloc source code](https://code.woboq.org/userspace/glibc/malloc/malloc.c.html)
+* [Good malloc](http://gee.cs.oswego.edu/dl/html/malloc.html)
+* [Understanding malloc](https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/)
