@@ -30,6 +30,9 @@ ulimit -S -v 10240
 ulimit -S -v unlimited
 ```
 
+## Using the best list implementation
+[linux/llist.h](https://github.com/torvalds/linux/blob/master/include/linux/llist.h)
+
 ## References
 * [difference between kernel space and userspace](https://stackoverflow.com/questions/5957570/what-is-the-difference-between-the-kernel-space-and-the-user-space)
 * [writing kernel drivers tutorial](http://derekmolloy.ie/writing-a-linux-kernel-module-part-1-introduction/)
