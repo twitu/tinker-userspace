@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "malloc.h"
+#include "tmalloc.h"
 #include "llist.h"
 
 #define INCREMENT 4096  // generally 4KB is the default page size
@@ -127,7 +127,7 @@ int request_memory() {
  * Allocate memory from given block. Mark block
  * as allocated and break it into a new unallocated block
  */
-void* malloc_mem(void* block, int size) {
+void* tmalloc_mem(void* block, int size) {
 
     // parse existing block
     void* empty_mem = block + sizeof(block_hdr);
@@ -149,16 +149,16 @@ void* malloc_mem(void* block, int size) {
 /***********************************
  * PUBLIC APIS
 ************************************
- * init_malloc
- * malloc
- * free
+ * init_tmalloc
+ * tmalloc
+ * tfree
 ************************************/
 
 /**
  * Intializes global variables and block finding algorithm
  * if function is passed invalid function name returns with -1
  */
-int init_malloc(char* algo_name) {
+int init_tmalloc(char* algo_name) {
 
     // set mem_block_algo memory allocation
     if (strcmp(algo_name, "first_fit_block_algo") == 0) {
@@ -184,7 +184,7 @@ void* tmalloc(int size) {
     void* alloc_block;
     alloc_block = (*mem_block_algo)(size);
 
-    // malloc_mem fails, request more memory from program stack
+    // tmalloc_mem fails, request more memory from program stack
     if (alloc_block == NULL) {
         ret = request_memory();
         if (ret == 0) {  // successful block allocation
@@ -193,7 +193,7 @@ void* tmalloc(int size) {
     }
 
     if (alloc_block != NULL) {
-        return malloc_mem(alloc_block, size);
+        return tmalloc_mem(alloc_block, size);
     } else {
         return NULL;
     }
@@ -213,7 +213,7 @@ void tfree(void* ptr) {
 // int main() {
 //     // printf("%d\n", getpid());
 //     printf("%d\n", getpid()); 
-//     init_malloc("first_fit_block_algo");
+//     init_tmalloc("first_fit_block_algo");
 //     int count = 0;
 //     while (true) {
 //         ret = request_memory();

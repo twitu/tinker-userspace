@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 #include "llist.h"
-#include "malloc.h"
+#include "tmalloc.h"
 
 // bias for allocate
 typedef enum operation {
@@ -22,7 +22,10 @@ int allocate_size[] = {
 };
 
 int main(int argc, char* argv[]) {
-    init_malloc("first_fit_block_algo");
+
+    #ifdef TINKER
+        init_tmalloc("first_fit_block_algo");
+    #endif
 
     // seed random number generator
     int seed = atoi(argv[1]);
@@ -51,13 +54,25 @@ int main(int argc, char* argv[]) {
             temp = traverse;
             traverse = traverse->prev;
             LL_DEL(temp);
-            tfree(temp);
+
+            #ifdef TINKER
+                tfree(temp);
+            #else
+                free(temp)
+            #endif
+
             count++;
         } else {
             
             // randomly choose bytes to allocate
             bytes = allocate_size[rand()%ALLOCATE_ITEMS];
-            temp = tmalloc(bytes);
+
+            #ifdef TINKER
+                temp = tmalloc(bytes);
+            #else
+                temp = malloc(bytes);
+            #endif
+
             if (temp == NULL) break;  // break when malloc fails
             LL_ADD(&llist, temp);
             traverse = temp;

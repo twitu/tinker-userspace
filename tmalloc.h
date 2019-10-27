@@ -1,7 +1,7 @@
 #ifndef MALLOC_H
 #define MALLOC_H
 
-int init_malloc(char* mem_block_algo);
+int init_tmalloc(char* mem_block_algo);
 void* tmalloc(int size);
 void tfree(void* ptr);
 
