@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
             #ifdef TINKER
                 tfree(temp);
             #else
-                free(temp)
+                free(temp);
             #endif
 
             count++;

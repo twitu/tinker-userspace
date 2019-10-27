@@ -69,20 +69,16 @@ This is a user program. It asks for memory uses it and frees it. A random number
 
 
 ## Instructions
-Ideally you should be using an OS with the latest kernel version.
-```bash
-gcc request_memory.c
-ulimit -S -v 10240
-./a.out
-ulimit -S -v unlimited
-```
+The instructions are for Linux based operating systems only. I am not sure if the code can be ported to other OS but PRs are welcome.
 
 ```bash
-gcc malloc.c
-ulimit -S -v 10240
-./a.out
-ulimit -S -v unlimited
+make regular
+make run
+make tinker
+make run
 ```
+
+`make regular` compiles the program with the glibc implementation of `malloc`. `make tinker` compiles the program with your implementation of `tmalloc`.
 
 ## Measure performance
 The `consume_memory.c` script behaves like a user program. It asks for memory and frees it. A random number generator (RNG) is used to decide whether to allocate or free memory. The RNG also decides the amount of memory to allocate.

@@ -14,4 +14,4 @@ run:
 	ulimit -S -v 10240; ./tinker.out 10
 
 run_debug:
-	ulimit -S -v 10240; ./debug.out 10
+	ulimit -S -v 10240; gdb ./debug.out 10
